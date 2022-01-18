@@ -11,6 +11,8 @@
 |
 */
 
+Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
+Route::get('/callback', 'LineLoginController@callback')->name('callback');
 Route::get('/', function () {
     return view('welcome');
 });
