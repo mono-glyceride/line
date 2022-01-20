@@ -40,13 +40,13 @@ class LineLoginController extends Controller
 
     //LINEからアクセストークンを取得
     $accessToken = $this->getAccessToken($request);
-    //ユーザー情報を取得
-    $userinfo = $this->getUserInfo($accessToken);
-    //ここではIDのみ使う。中には$userName、$userId、$userIconなど。
+    //プロフィール取得
+    $profile = $this->getProfile($accessToken);
+    //$profileには名前（displayName）、ID（userId）、アイコン画像URL（pictureUrl）などの情報が含まれる
     //メッセージ送信
-    $this->sendMessage($userinfo->userId);
+    $this->sendMessage($profile->userId);
 
-    return view('callback', compact('userinfo'));
+    return view('callback', compact('profile'));
 
   }
 
@@ -81,9 +81,7 @@ class LineLoginController extends Controller
 
   }
 
-  
-  //ここではIDのみ。$userName、$userId、$userIcon、
-  public function getUserInfo($at)
+  public function getProfile($at)
   {
 
     $curl = curl_init();
@@ -135,7 +133,7 @@ class LineLoginController extends Controller
         ]
     );
 
-    $messenger->pushMessage($lineId, new TextMessageBuilder("LINEログインしました。"));
+    $messenger->pushMessage($lineId, new TextMessageBuilder("LINEログインを行いました"));
 
   }
 }

@@ -58,8 +58,9 @@
             <div class="content">
 
                 <div class="links">
-                    <p>ユーザーID: {{$userinfo->userId}}</p>
+                    <p>ユーザーID: {{$profile->userId}}</p>
                 </div>
+                <button type="button">メッセージを送信</button>
             </div>
         </div>
     </body>
