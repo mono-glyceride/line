@@ -60,9 +60,10 @@
                 <div class="links">
                     <p>ユーザーID: {{$profile->userId}}</p>
                 </div>
-                <form method="POST" action="{{ route('clickBtn', $request) }}">
-                    <input type="hidden" id="lineId" name="lineId" value={{$profile->userId}}>
-			        <input type="submit" value="呪術廻戦まめちしきを送信">
+                {{Form::open(['route' => 'ClickBtn'])}}
+                    {{Form::hidden('lineId', $profile->userId)}}
+                    {{Form::submit('呪術廻戦まめちしきを送信！', ['class' => 'btn'])}}
+                {{Form::close()}}
                 </form>
             </div>
         </div>
