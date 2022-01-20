@@ -60,7 +60,7 @@
                 <div class="links">
                     <p>ユーザーID: {{$profile->userId}}</p>
                 </div>
-                {{Form::open(['route' => 'ClickBtn'])}}
+                {{Form::open(['route' => 'clickBtn'])}}
                     {{Form::hidden('lineId', $profile->userId)}}
                     {{Form::submit('呪術廻戦まめちしきを送信！', ['class' => 'btn'])}}
                 {{Form::close()}}
