@@ -100,7 +100,7 @@ class LineLoginController extends Controller
 
   }
 
-  public function sendMessage($lineId, $massage_flg) {
+  public function sendMessage($lineId, $message_flg) {
     
     //Messaging APIチャネルのアクセストークン取得
     $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
