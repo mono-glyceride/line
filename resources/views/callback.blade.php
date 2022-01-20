@@ -58,8 +58,13 @@
             <div class="content">
 
                 <div class="links">
-                    <p>ユーザーID: {{$userinfo->userId}}</p>
+                    <p>ユーザーID: {{$profile->userId}}</p>
                 </div>
+                {{Form::open(['route' => 'clickBtn'])}}
+                    {{Form::hidden('lineId', $profile->userId)}}
+                    {{Form::submit('呪術廻戦まめちしきを送信！', ['class' => 'btn'])}}
+                {{Form::close()}}
+                </form>
             </div>
         </div>
     </body>
