@@ -58,7 +58,7 @@
             <div class="content">
 
                 <div class="links">
-                    <p>ユーザーID: {{$lineId}}</p>
+                    <p>ユーザーID: {{$userinfo->userId}}</p>
                 </div>
             </div>
         </div>

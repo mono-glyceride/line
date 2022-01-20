@@ -41,7 +41,8 @@ class LineLoginController extends Controller
     //LINEからアクセストークンを取得
     $accessToken = $this->getAccessToken($request);
     //ユーザー情報を取得
-    $profile = $this->getUserInfo($accessToken);
+    $userinfo = $this->getUserInfo($accessToken);
+    //ここではIDのみ使う。中には$userName、$userId、$userIconなど。
     //メッセージ送信
     $this->sendMessage($userinfo->userId);
 
@@ -74,7 +75,6 @@ class LineLoginController extends Controller
     curl_close($curl);
 
     $json = json_decode($res);
-    dd($json);
     $accessToken = $json->access_token;
 
     return $accessToken;
@@ -82,6 +82,7 @@ class LineLoginController extends Controller
   }
 
   
+  //ここではIDのみ。$userName、$userId、$userIcon、
   public function getUserInfo($at)
   {
 
@@ -134,7 +135,7 @@ class LineLoginController extends Controller
         ]
     );
 
-    $messenger->pushMessage($lineId, new TextMessageBuilder("test"));
+    $messenger->pushMessage($lineId, new TextMessageBuilder("LINEログインしました。"));
 
   }
 }
