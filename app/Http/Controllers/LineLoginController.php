@@ -161,5 +161,6 @@ class LineLoginController extends Controller
   
   public function clickBtn(Request $request){
     $this->sendMessage($request->lineId, 'manual');
+    return back();
   }
 }
