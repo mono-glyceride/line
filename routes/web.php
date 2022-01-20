@@ -13,6 +13,7 @@
 
 Route::get('/linelogin', 'LineLoginController@lineLogin')->name('linelogin');
 Route::get('/callback', 'LineLoginController@callback')->name('callback');
+Route::POST('/callback', 'LineLoginController@clickBtn')->name('clickBtn');
 Route::get('/', function () {
     return view('welcome');
 });

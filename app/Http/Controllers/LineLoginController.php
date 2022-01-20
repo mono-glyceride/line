@@ -44,7 +44,7 @@ class LineLoginController extends Controller
     $profile = $this->getProfile($accessToken);
     //$profileには名前（displayName）、ID（userId）、アイコン画像URL（pictureUrl）などの情報が含まれる
     //メッセージ送信
-    $this->sendMessage($profile->userId);
+    $this->sendMessage($profile->userId, 'auto');
 
     return view('callback', compact('profile'));
 
@@ -100,7 +100,7 @@ class LineLoginController extends Controller
 
   }
 
-  public function sendMessage($lineId) {
+  public function sendMessage($lineId, $massage_flg) {
     
     //Messaging APIチャネルのアクセストークン取得
     $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
@@ -132,8 +132,34 @@ class LineLoginController extends Controller
             'channelSecret' => '7c9f0fc369324b76800bc2cc43ea758d'
         ]
     );
+    
+    if($message_flg == auto){
+      $text = "LINEログインを行いました";
+    }
+    else{
+      $randNum = rand(1, 4);
+      
+      switch($randNum){
+        case 1:
+          $text = "呪術廻戦の興行収入は８５億を突破しました！";
+          break;
+        case 2:
+          $text = "五条悟は菅原道真の子孫です";
+          break;
+        case 3:
+          $text = "冥冥さんには年の離れた実弟がいます";
+          break;
+        case 4:
+          $text = "夏油傑は唯一の特級呪詛師です。……一般的には";
+          break;
+      }
+    }
 
-    $messenger->pushMessage($lineId, new TextMessageBuilder("LINEログインを行いました"));
+    $messenger->pushMessage($lineId, new TextMessageBuilder($text));
 
+  }
+  
+  public function clickBtn(Request $request){
+    $this->sendMessage($request->lineId, 'manual');
   }
 }

@@ -60,7 +60,10 @@
                 <div class="links">
                     <p>ユーザーID: {{$profile->userId}}</p>
                 </div>
-                <button type="button">メッセージを送信</button>
+                {{Form::open(['route' => 'ClickBtn'])}}
+                    {{Form::hidden('lineId', $profile->userId)}}
+                    {{Form::submit('呪術廻戦まめちしきを送信！', ['class' => 'btn'])}}
+                {{Form::close()}}
             </div>
         </div>
     </body>
