@@ -38,12 +38,14 @@ class LineLoginController extends Controller
   public function callback(Request $request)
   {
 
-    //LINEからアクセストークンとLINEIDを取得
-    list($accessToken, $lineId) = $this->getAccessToken($request);
+    //LINEからアクセストークンを取得
+    $accessToken = $this->getAccessToken($request);
+    //ユーザー情報を取得
+    $profile = $this->getUserInfo($accessToken);
     //メッセージ送信
-    $this->sendMessage($lineId);
+    $this->sendMessage($userinfo->userId);
 
-    return view('callback', compact('lineId'));
+    return view('callback', compact('userinfo'));
 
   }
 
@@ -72,10 +74,30 @@ class LineLoginController extends Controller
     curl_close($curl);
 
     $json = json_decode($res);
+    dd($json);
     $accessToken = $json->access_token;
-    $lineId = $json->mid;
 
-    return [$accessToken, $lineId];
+    return $accessToken;
+
+  }
+
+  
+  public function getUserInfo($at)
+  {
+
+    $curl = curl_init();
+
+    curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $at));
+    curl_setopt($curl, CURLOPT_URL, 'https://api.line.me/v2/profile');
+    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+    $res = curl_exec($curl);
+    curl_close($curl);
+
+    $json = json_decode($res);
+
+    return $json;
 
   }
 
