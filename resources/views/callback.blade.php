@@ -58,8 +58,7 @@
             <div class="content">
 
                 <div class="links">
-                    <p>ユーザーID: {{$profile->userId}}</p>
-                    <p>名前: {{$profile->displayName}}</p>
+                    <p>ユーザーID: {{$lineId}}</p>
                 </div>
             </div>
         </div>
