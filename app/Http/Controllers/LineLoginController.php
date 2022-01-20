@@ -133,7 +133,7 @@ class LineLoginController extends Controller
         ]
     );
     
-    if($message_flg == auto){
+    if($message_flg == 'auto'){
       $text = "LINEログインを行いました";
     }
     else{
