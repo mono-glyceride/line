@@ -47,7 +47,7 @@ class LineLoginController extends Controller
     //メッセージ送信
     $this->sendMessage($userId, 'auto');
 
-    return view('callback', $userId);
+    return view('callback', ['userId'=>$userId]);
 
   }
 
@@ -163,6 +163,6 @@ class LineLoginController extends Controller
   public function clickBtn(Request $request){
     $userId = $request->userId;
     $this->sendMessage($userId, 'manual');
-    return view('callback', $userId);
+    return view('callback', ['userId'=>$userId]);
   }
 }
