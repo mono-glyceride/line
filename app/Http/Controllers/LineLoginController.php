@@ -147,7 +147,7 @@ class LineLoginController extends Controller
     $messenger = new LINEBot(
         new CurlHTTPClient($accessToken),
         [
-            'channelSecret' => '7c9f0fc369324b76800bc2cc43ea758d'
+            'channelSecret' => $line_message_channel_secret
         ]
     );
     
