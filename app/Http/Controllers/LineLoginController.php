@@ -43,10 +43,11 @@ class LineLoginController extends Controller
     //プロフィール取得
     $profile = $this->getProfile($accessToken);
     //$profileには名前（displayName）、ID（userId）、アイコン画像URL（pictureUrl）などの情報が含まれる
+    $userId = $profile->userId;
     //メッセージ送信
-    $this->sendMessage($profile->userId, 'auto');
+    $this->sendMessage($userId, 'auto');
 
-    return view('callback', compact('profile'));
+    return view('callback', $userId);
 
   }
 
@@ -100,7 +101,7 @@ class LineLoginController extends Controller
 
   }
 
-  public function sendMessage($lineId, $message_flg) {
+  public function sendMessage($userId, $message_flg) {
     
     //Messaging APIチャネルのアクセストークン取得
     $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
@@ -155,12 +156,13 @@ class LineLoginController extends Controller
       }
     }
 
-    $messenger->pushMessage($lineId, new TextMessageBuilder($text));
+    $messenger->pushMessage($userId, new TextMessageBuilder($text));
 
   }
   
   public function clickBtn(Request $request){
-    $this->sendMessage($request->lineId, 'manual');
-    return back();
+    $userId = $request->userId;
+    $this->sendMessage($userId, 'manual');
+    return view('callback', $userId);
   }
 }
