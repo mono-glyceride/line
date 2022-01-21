@@ -19,10 +19,15 @@ class LineLoginController extends Controller
 
       // リプレイアタックを防止するためランダムな英数字を生成
       $nonce  = Str::random(32);
+      
+      //config/line.phpで定義した環境変数を呼び出し
+      $line_channel_id = config('line.line_channel_id');
     
       $uri ="https://access.line.me/oauth2/v2.1/authorize?";
       $response_type = "response_type=code";
-      $client_id = "&client_id=1656807913";
+      //LINEログインチャネルID
+      $client_id = "&client_id=$line_channel_id";
+      //コールバックURL
       $redirect_uri ="&redirect_uri=https://gurido-line.herokuapp.com//callback";
       $state_uri = "&state=".$state;
       $scope = "&scope=openid%20profile";
@@ -54,13 +59,18 @@ class LineLoginController extends Controller
   public function getAccessToken($req)
   {
 
+    //config/line.phpで定義した環境変数を呼び出し
+    $line_channel_id = config('line.line_channel_id');
+    $line_channel_secret = config('line.line_channel_secret');
+    
+      
     $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
     $post_data = array(
       'grant_type'    => 'authorization_code',
       'code'          => $req['code'],
       'redirect_uri'  => 'https://gurido-line.herokuapp.com//callback',
-      'client_id'     => '1656807913',
-      'client_secret' => 'dc9cf4ea54f53dbd295cdcb44cbae6f6'
+      'client_id'     => $line_channel_id,
+      'client_secret' => $line_channel_secret
     );
     $url = 'https://api.line.me/oauth2/v2.1/token';
 
@@ -105,10 +115,17 @@ class LineLoginController extends Controller
     
     //Messaging APIチャネルのアクセストークン取得
     $headers = [ 'Content-Type: application/x-www-form-urlencoded' ];
+    
+    //config/line.phpで定義した環境変数を呼び出し
+    $line_message_channel_id = config('line.line_message_channel_id');
+    $line_message_channel_secret = config('line.line_message_channel_secret');
+    
     $post_data = array(
       'grant_type'    => 'client_credentials',
-      'client_id'     => '1656814611',
-      'client_secret' => '7c9f0fc369324b76800bc2cc43ea758d'
+      //Messaging APIチャネルID
+      'client_id'     => $line_message_channel_id,
+      //Messaging APIチャネルシークレット
+      'client_secret' => $line_message_channel_secret
     );
     $url = 'https://api.line.me/v2/oauth/accessToken';
 
