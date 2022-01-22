@@ -70,7 +70,9 @@ class LineLoginController extends Controller
       'code'          => $req['code'],
       'redirect_uri'  => 'https://gurido-line.herokuapp.com//callback',
       'client_id'     => $line_channel_id,
-      'client_secret' => $line_channel_secret
+      'client_secret' => $line_channel_secret,
+      'prompt'        => 'consent',
+      'bot_prompt'    => 'aggressive'
     );
     $url = 'https://api.line.me/oauth2/v2.1/token';
 
