@@ -56,6 +56,24 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .effect{
+            border-radius: 40px;
+            width: 300px;
+            height:116px;
+            margin: 0 auto;
+            overflow: hidden;
+            background: #000;
+            }
+            .effect img{
+            width: 100%;
+            cursor: pointer;
+            }
+            .effect:hover img{
+            opacity: 0.9;
+            }
+            .effect:active img{
+            opacity: 0.7;
+            }
         </style>
     </head>
     <body>
@@ -66,9 +84,10 @@
                     LINE LOGIN
                 </div>
 
-                <div class="links">
-                    <a href="/linelogin">LINEログイン</a>
+                <div class="effect">
+                    <a href="/linelogin"><img src="/btn_line_login.png" class="btn_login"></a>
                 </div>
+                
             </div>
         </div>
     </body>
