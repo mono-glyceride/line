@@ -32,9 +32,10 @@ class LineLoginController extends Controller
       $state_uri = "&state=".$state;
       $scope = "&scope=openid%20profile";
       $prompt = "&prompt=consent";
+      $bot_prompt = "&bot_prompt=aggressive";
       $nonce_uri = "&nonce=";
 
-      $uri = $uri . $response_type . $client_id . $redirect_uri . $state_uri . $scope . $prompt . $nonce_uri;
+      $uri = $uri . $response_type . $client_id . $redirect_uri . $state_uri . $scope . $prompt . $bot_prompt . $nonce_uri;
 
       return redirect($uri);
 
@@ -70,9 +71,7 @@ class LineLoginController extends Controller
       'code'          => $req['code'],
       'redirect_uri'  => 'https://gurido-line.herokuapp.com//callback',
       'client_id'     => $line_channel_id,
-      'client_secret' => $line_channel_secret,
-      'prompt'        => 'consent',
-      'bot_prompt'    => 'aggressive'
+      'client_secret' => $line_channel_secret
     );
     $url = 'https://api.line.me/oauth2/v2.1/token';
 
